@@ -19,13 +19,13 @@ export const ConfusionMatrix: React.FC<ConfusionMatrixProps> = ({
       <h3 className="text-lg font-semibold text-center mb-4 text-blue-gem-800">Confusion Matrix</h3>
       <div className="flex justify-center">
         <div className="flex items-center mr-2">
-          <div className="[writing-mode:vertical-rl] transform rotate-180 font-bold text-slate-600">Actual</div>
+          <div className="[writing-mode:vertical-rl] transform rotate-180 font-bold text-slate-600">Predicted</div>
         </div>
         <table className="flex-grow border-collapse text-center">
           <thead>
             <tr>
               <th className="w-24"></th>
-              <th colSpan={2} className="p-1 font-bold text-slate-600">Predicted</th>
+              <th colSpan={2} className="p-1 font-bold text-slate-600">Actual</th>
             </tr>
             <tr>
               <th className="w-24"></th>
@@ -43,18 +43,18 @@ export const ConfusionMatrix: React.FC<ConfusionMatrixProps> = ({
                 </div>
               </td>
               <td className="p-1">
-                <div className="bg-red-100 p-4 rounded-lg flex flex-col justify-center items-center border border-red-200">
-                  <span className="text-2xl font-bold text-red-800">{fn}</span>
-                  <span className="text-xs text-red-700 mt-1">False Negative</span>
+                <div className="bg-orange-100 p-4 rounded-lg flex flex-col justify-center items-center border border-orange-200">
+                  <span className="text-2xl font-bold text-orange-800">{fp}</span>
+                  <span className="text-xs text-orange-700 mt-1">False Positive</span>
                 </div>
               </td>
             </tr>
             <tr>
               <th className="p-2 font-semibold text-slate-500 text-sm bg-slate-100 rounded-l-md">{negativeLabel}</th>
               <td className="p-1">
-                <div className="bg-orange-100 p-4 rounded-lg flex flex-col justify-center items-center border border-orange-200">
-                  <span className="text-2xl font-bold text-orange-800">{fp}</span>
-                  <span className="text-xs text-orange-700 mt-1">False Positive</span>
+                <div className="bg-red-100 p-4 rounded-lg flex flex-col justify-center items-center border border-red-200">
+                  <span className="text-2xl font-bold text-red-800">{fn}</span>
+                  <span className="text-xs text-red-700 mt-1">False Negative</span>
                 </div>
               </td>
               <td className="p-1">
