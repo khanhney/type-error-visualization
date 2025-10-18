@@ -12,11 +12,14 @@ export const Playground: React.FC<PlaygroundProps> = ({ scenario }) => {
   const [threshold, setThreshold] = useState(0.5);
   const { calculateMetrics, runNewSimulation } = useSimulation();
 
+  const [editableCostFP, setEditableCostFP] = useState(scenario.costFP);
+  const [editableCostFN, setEditableCostFN] = useState(scenario.costFN);
+
   const metrics = useMemo(() => calculateMetrics(threshold), [calculateMetrics, threshold]);
   
   const totalCost = useMemo(() => {
-    return metrics.fp * scenario.costFP + metrics.fn * scenario.costFN;
-  }, [metrics.fp, metrics.fn, scenario.costFP, scenario.costFN]);
+    return metrics.fp * editableCostFP + metrics.fn * editableCostFN;
+  }, [metrics.fp, metrics.fn, editableCostFP, editableCostFN]);
 
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [showExplanation, setShowExplanation] = useState(false);
@@ -60,14 +63,38 @@ export const Playground: React.FC<PlaygroundProps> = ({ scenario }) => {
         <Card>
           <div className="p-6">
              <h3 className="text-lg font-semibold mb-4 text-blue-gem-800">Cost Analysis</h3>
-             <div className="space-y-3 text-sm">
+             <div className="space-y-4 text-sm">
                 <div className="flex justify-between items-center">
-                    <p className="text-slate-600">Cost per False Positive:</p>
-                    <p className="font-semibold text-orange-600">${scenario.costFP.toLocaleString()}</p>
+                    <label htmlFor="cost-fp-input" className="text-slate-600">Cost per False Positive:</label>
+                    <div className="relative rounded-md shadow-sm">
+                         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                            <span className="text-slate-500 sm:text-sm">$</span>
+                        </div>
+                        <input 
+                            type="number"
+                            id="cost-fp-input"
+                            value={editableCostFP}
+                            onChange={(e) => setEditableCostFP(Number(e.target.value) >= 0 ? Number(e.target.value) : 0)}
+                            className="block w-28 rounded-md border-0 py-1.5 pl-7 pr-2 bg-slate-50 text-right font-semibold text-orange-600 ring-1 ring-inset ring-slate-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-gem-600 sm:text-sm sm:leading-6"
+                            aria-label="Cost per False Positive"
+                        />
+                    </div>
                 </div>
                 <div className="flex justify-between items-center">
-                    <p className="text-slate-600">Cost per False Negative:</p>
-                    <p className="font-semibold text-red-600">${scenario.costFN.toLocaleString()}</p>
+                    <label htmlFor="cost-fn-input" className="text-slate-600">Cost per False Negative:</label>
+                    <div className="relative rounded-md shadow-sm">
+                         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                            <span className="text-slate-500 sm:text-sm">$</span>
+                        </div>
+                        <input 
+                            type="number"
+                            id="cost-fn-input"
+                            value={editableCostFN}
+                            onChange={(e) => setEditableCostFN(Number(e.target.value) >= 0 ? Number(e.target.value) : 0)}
+                            className="block w-28 rounded-md border-0 py-1.5 pl-7 pr-2 bg-slate-50 text-right font-semibold text-red-600 ring-1 ring-inset ring-slate-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-gem-600 sm:text-sm sm:leading-6"
+                            aria-label="Cost per False Negative"
+                        />
+                    </div>
                 </div>
                 <div className="border-t my-2"></div>
                 <div className="flex justify-between items-center text-lg">
