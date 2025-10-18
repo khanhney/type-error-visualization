@@ -1,0 +1,5 @@
+{
+  "name": "Type I & II Error Playground",
+  "description": "An interactive web application to help students and professionals understand and remember Type I (False Positive) and Type II (False Negative) errors through hands-on simulation, real-world scenarios, and quizzes.",
+  "requestFramePermissions": []
+}
